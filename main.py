@@ -28,7 +28,7 @@ def customFunction(numInputVariables, inputValues, numSamples):
 	# Simple weighted sum function used: i.e. y = a1*x1 + a2*x2 + ... an*xn
 	# where a1, a2, a3... are randomly sampled weights used for all samples in the dataset
 	# x1, x2, x3... are input attributes and y is the target value for a single sample
-	weights = np.random.random_sample((numInputVariables,))
+	weights = (np.random.random_sample((numInputVariables,)) - 0.5) *2
 	targetMatrix  = inputValues* weights
 	yValues = np.reshape(np.sum(targetMatrix, axis = 1), (numSamples,1))
 
@@ -57,26 +57,26 @@ def createDB(numInputVariables, numSamples, inpDiscrete, numberOfClasses, noise 
 	# save the dataframe as a csv file
 	saveCSV(DF, inpDiscrete, numberOfClasses, fileName)
 
-print("Input variable values are normalised (taken between 0 to 1)!!")
+print("Input variable values are normalised (taken between 0 to 1)!!\n\n")
 
-numInputVariables = int(input("How many input variables do you want? (Enter a natural number)"))
+numInputVariables = int(input("How many input variables do you want? (Enter a natural number)\t"))
 
-noise = input("Do you want to add noise? y/n")
+noise = input("\n\nDo you want to add noise? y/n\t")
 if noise == "y":
-	print("Random noise will be added in the range of 0 to upper limit")
-	noise = float(input("What should be the upper limit of noise? (Enter float value from 0 to 1)"))
+	print("\nRandom noise will be added in the range of 0 to upper limit\n")
+	noise = float(input("What should be the upper limit of noise? (Enter float value from 0 to 1)\t"))
 else:
 	noise = 0
 
-classChoice = input("Do you want to make some input variables discrete (having classes: 1, 2, 3...)? y/n")
+classChoice = input("\n\nDo you want to make some input variables discrete (having classes: 1, 2, 3...)? y/n\t")
 if classChoice == "y":
 	inpDiscrete = []
 	numberOfClasses = []
 	for i in range(numInputVariables):
-		ch = input("Is input variable-{} a discrete value attribute? y/n".format(i+1))
+		ch = input("\nIs input variable-{} a discrete value attribute? y/n\t".format(i+1))
 		if ch == "y":
 			inpDiscrete.append(True)
-			numClasses = int(input("Enter the number of classes: (Enter a natural number)"))
+			numClasses = int(input("Enter the number of classes: (Enter a natural number)\t"))
 			numberOfClasses.append(numClasses)
 		else:
 			inpDiscrete.append(False)
@@ -85,6 +85,6 @@ else:
 	inpDiscrete = [False for i in range(numInputVariables)]
 	numberOfClasses = [0 for i in range(numInputVariables)]
 
-numSamples = int(input("How many samples do you want? (Enter a natural number)"))
+numSamples = int(input("\n\nHow many samples do you want? (Enter a natural number)\t"))
 
 createDB(numInputVariables, numSamples, inpDiscrete, numberOfClasses, noise)
