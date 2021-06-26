@@ -4,8 +4,11 @@
 # The code below creates a synthetic dataset based on an ideal function which can be used as a sample
 # to observe the behaviour of an ML model for a simplistic dataset
 
+import numpy as np
+import pandas as pd
+
 def saveCSV(DF, inpDiscrete, numberOfClasses, fileName):
-	if np.any(inpDiscrete)
+	if np.any(inpDiscrete):
 		for i in range(len(inpDiscrete)):
 			if inpDiscrete[i] == True:
 				origColVals = np.asarray(DF[i])
@@ -21,22 +24,22 @@ def saveCSV(DF, inpDiscrete, numberOfClasses, fileName):
 	DF.to_csv(fileName)
 
 
-def customFunction(inputValues, inputValues, numSamples):
+def customFunction(numInputVariables, inputValues, numSamples):
 	# Simple weighted sum function used: i.e. y = a1*x1 + a2*x2 + ... an*xn
 	# where a1, a2, a3... are randomly sampled weights used for all samples in the dataset
 	# x1, x2, x3... are input attributes and y is the target value for a single sample
-	weights = np.random_sample((numinputVariables,))
+	weights = np.random.random_sample((numInputVariables,))
 	targetMatrix  = inputValues* weights
 	yValues = np.reshape(np.sum(targetMatrix, axis = 1), (numSamples,1))
 
 	# semiFinalDB is the database which is the combination of [x1, x2, x3...xn, y]
-	semiFinalDB = np.hstack((inputValues,y))
+	semiFinalDB = np.hstack((inputValues,yValues))
 
 	return semiFinalDB
 
 def createDB(numInputVariables, numSamples, inpDiscrete, numberOfClasses, noise = 0, fileName = "sampleDB.csv"):
 	# Variables are normalized float values between 0 to 1
-	inputValues = np.random_sample((numSamples, numInputVariables))
+	inputValues = np.random.random_sample((numSamples, numInputVariables))
 
 	# Using a simple weighted sum as the target function 
 	# edit the function: "customFunction" to create your own custom function
@@ -61,7 +64,7 @@ numInputVariables = int(input("How many input variables do you want? (Enter a na
 noise = input("Do you want to add noise? y/n")
 if noise == "y":
 	print("Random noise will be added in the range of 0 to upper limit")
-	noise = int(input("What should be the upper limit of noise? (Enter float value from 0 to 1)"))
+	noise = float(input("What should be the upper limit of noise? (Enter float value from 0 to 1)"))
 else:
 	noise = 0
 
